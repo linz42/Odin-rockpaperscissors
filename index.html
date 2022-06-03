@@ -24,8 +24,6 @@
                     return "Code broke";
             };
         }
-
-        
         
         function playRound(computer, player) {
             let computerSelection = computerPlay();
@@ -53,11 +51,22 @@
                 return "lose";
             }
         }
-
-        function game() {
+        
+        function playGame() {
             for (let i = 0; i < 5; i++) {
-                playRound();
-                if ()
+                winner = playRound();
+                w = 0;
+                l = 0;
+                if (winner = "win") {
+                    w++;
+                } else if (winner = "lose") {
+                    l++;
+                }
+            }
+            if (w > l) {
+                return "You Win!";
+            } else if (l > w) {
+                return "You Lose.";
             }
         }
 
