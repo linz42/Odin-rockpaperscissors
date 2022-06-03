@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors</title>
+</head>
+<body>
+    <script>
+        function computerPlay() {
+            let compChoice = Math.floor(Math.random() * 3);
+            switch (compChoice) {
+                case 0:
+                    return "Rock";
+                    break;
+                case 1:
+                    return "Paper";
+                    break;
+                case 2:
+                    return "Scissors";
+                    break;
+                default:
+                    return "Code broke";
+            };
+        }
+
+        
+        
+        function playRound(computer, player) {
+            let computerSelection = computerPlay();
+            let playerSelection = prompt("Please choose rock, paper or scissors");
+            computer = computerSelection.toLowerCase();
+            player = playerSelection.toLowerCase();
+            if (computer == player) {
+                alert(`Tie game. Both picked ${player}!`);
+                console.log(`computer: ${computer}`);
+                console.log(`you: ${player}`);
+                return "tie";
+            } else if ((computer == "scissors" && player == "rock") ||
+            (computer == "rock" && player == "paper") ||
+            (computer == "paper" && player == "scissors")) {
+                alert(`You win ${player} beats ${computer}!`);
+                console.log(`computer: ${computer}`);
+                console.log(`you: ${player}`);
+                return "win";
+            } else if ((computer == "rock" && player == "scissors") || 
+            (computer == "paper" && player == "rock") ||
+            (computer == "scissors" && player == "paper")) {
+                alert(`You lose, ${computer} beats ${player}.`);
+                console.log(`computer: ${computer}`);
+                console.log(`you: ${player}`);
+                return "lose";
+            }
+        }
+
+        function game() {
+            for (let i = 0; i < 5; i++) {
+                playRound();
+                if ()
+            }
+        }
+
+    </script>
+</body>
+</html>
