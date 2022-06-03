@@ -53,20 +53,26 @@
         }
         
         function playGame() {
+            w = 0;
+            l = 0;
             for (let i = 0; i < 5; i++) {
                 winner = playRound();
-                w = 0;
-                l = 0;
-                if (winner = "win") {
+                console.log(winner);
+                if (winner == "win") {
                     w++;
-                } else if (winner = "lose") {
+                } else if (winner == "lose") {
                     l++;
                 }
             }
             if (w > l) {
+                console.log(`${w}:${l}`);
                 return "You Win!";
             } else if (l > w) {
+                console.log(`${w}:${l}`);
                 return "You Lose.";
+            } else if (l == w) {
+                console.log(t);
+                return "You tied.";
             }
         }
 
