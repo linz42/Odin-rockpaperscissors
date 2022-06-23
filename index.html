@@ -87,7 +87,7 @@
                 roundOutcome.textContent = "You win!! " + player + " beats " + computer + "! | Computer: " + computer + " | You: " + player;
                 win++;
                 console.log("Win: " + win);
-                if (win >= 3) {
+                if (win >= 5) {
                     resultcontainer.appendChild(roundOutcome);
                     roundOutcome.textContent = "You win the game!";
                 }
@@ -100,7 +100,7 @@
                 roundOutcome.textContent = "You lost, " + computer + " beats " + player + " | Computer: " + computer + " | You: " + player;
                 lose++;
                 console.log("Lose:" + lose);
-                if (lose >= 3) {
+                if (lose >= 5) {
                     resultcontainer.appendChild(roundOutcome);
                     roundOutcome.textContent = "You lost the game.";
                 }
