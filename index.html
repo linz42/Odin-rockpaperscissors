@@ -5,77 +5,154 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock, Paper, Scissors</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
 <body>
+
+    <div class="maincontainer">
+        <h1>Choose wisely!</h1>
+        <p>Best out of 5 wins!</p>
+    <div class="selectioncontainer">
+        <button class="button userchoice" id="urock" onclick="playRound('rock')" value="rock">Rock</button>
+        <button class="button userchoice" id="upaper" onclick="playRound('paper')" value="paper">Paper</button>
+        <button class="button userchoice" id="uscissors" onclick="playRound('scissors')" value="scissors">Scissors</button>
+    </div>
+    <div class="selectioncomputer">
+        <div class="compchoice" id="crock">Rock</div>
+        <div class="compchoice" id="cpaper">Paper</div>
+        <div class="compchoice" id="cscissors">Scissors</div>
+    </div>
+
+    <div class="resultcontainer">Results: 
+        <ol>
+
+        </ol>
+    </div>
+    <div class="optionscontainer">
+        <button class="button reset" >Reset</button>
+    </div>
+    </div>
+
+</body>
+
     <script>
+
+        
         function computerPlay() {
             let compChoice = Math.floor(Math.random() * 3);
             switch (compChoice) {
                 case 0:
+                    //append class
+                    let choicer = document.querySelector('#crock');
+                    choicer.classList.add('selected');
                     return "Rock";
                     break;
                 case 1:
+                    //append class
+                    let choicep = document.querySelector('#cpaper');
+                    choicep.classList.add('selected');
                     return "Paper";
                     break;
                 case 2:
+                    //append class
+                    let choices = document.querySelector('#cscissors')
+                    choices.classList.add('selected');
                     return "Scissors";
                     break;
                 default:
                     return "Code broke";
-            };
-        }
-        
-        function playRound(computer, player) {
+                };
+            }        
+            let win = 0;
+            let lose = 0;
+        function playRound(playerSelection) {
+            const roundOutcome = document.createElement('li');
+            const lbreak = document.createElement('hr');
             let computerSelection = computerPlay();
-            let playerSelection = prompt("Please choose rock, paper or scissors");
+            // Change to listener event for click on buttons
             computer = computerSelection.toLowerCase();
-            player = playerSelection.toLowerCase();
+            player = playerSelection;
+            let resultcontainer = document.querySelector('ol');
             if (computer == player) {
-                alert(`Tie game. Both picked ${player}!`);
-                console.log(`computer: ${computer}`);
-                console.log(`you: ${player}`);
-                return "tie";
+                // Append result
+                resultcontainer.appendChild(roundOutcome);
+                roundOutcome.textContent = "Tie game. Both picked " + player + " | Computer: " + computer + " | You: " + player;
+            return "tie";
             } else if ((computer == "scissors" && player == "rock") ||
             (computer == "rock" && player == "paper") ||
             (computer == "paper" && player == "scissors")) {
-                alert(`You win ${player} beats ${computer}!`);
-                console.log(`computer: ${computer}`);
-                console.log(`you: ${player}`);
+                // Append result
+                resultcontainer.appendChild(roundOutcome);
+                roundOutcome.textContent = "You win!! " + player + " beats " + computer + "! | Computer: " + computer + " | You: " + player;
+                win++;
+                console.log("Win: " + win);
+                if (win >= 3) {
+                    resultcontainer.appendChild(roundOutcome);
+                    roundOutcome.textContent = "You win the game!";
+                }
                 return "win";
             } else if ((computer == "rock" && player == "scissors") || 
             (computer == "paper" && player == "rock") ||
             (computer == "scissors" && player == "paper")) {
-                alert(`You lose, ${computer} beats ${player}.`);
-                console.log(`computer: ${computer}`);
-                console.log(`you: ${player}`);
+                // Append result
+                resultcontainer.appendChild(roundOutcome);
+                roundOutcome.textContent = "You lost, " + computer + " beats " + player + " | Computer: " + computer + " | You: " + player;
+                lose++;
+                console.log("Lose:" + lose);
+                if (lose >= 3) {
+                    resultcontainer.appendChild(roundOutcome);
+                    roundOutcome.textContent = "You lost the game.";
+                }
                 return "lose";
             }
         }
+
         
         function playGame() {
             w = 0;
             l = 0;
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; true; i++) {
                 winner = playRound();
                 console.log(winner);
                 if (winner == "win") {
                     w++;
+                    if (w => 3) {
+                        break;
+                    }
                 } else if (winner == "lose") {
                     l++;
+                    if (l => 3) {
+                        break;
+                    }
                 }
             }
-            if (w > l) {
-                console.log(`${w}:${l}`);
+            if (w => 3) {
+                // Append results
+                const result = document.querySelector('.resultcontainer');
+                document.result.append(paragraph);
+                document.result.textContent = `${w}:${l}`;
                 return "You Win!";
-            } else if (l > w) {
-                console.log(`${w}:${l}`);
+            } else if (l => 3) {
+                // Append results
+                const result = document.querySelector('.resultcontainer');
+                document.result.append(paragraph);
+                document.result.textContent = `${w}:${l}`;
                 return "You Lose.";
-            } else if (l == w) {
-                console.log(t);
+            } else {
+                // Append results
+                const result = document.querySelector('.resultcontainer');
+                document.result.append(paragraph);
+                document.result.textContent = t;
                 return "You tied.";
             }
-        }
+        };
+        
+        const reset = document.querySelector('.reset');
+        reset.addEventListener('click', function resetpage() {
+            location.reload();
+        });
+        
+        </script>
 
-    </script>
-</body>
 </html>
