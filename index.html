@@ -12,7 +12,7 @@
 
     <div class="maincontainer">
         <h1>Choose wisely!</h1>
-        <p>Best out of 5 wins!</p>
+        <p>Win 5 rounds to win the game!</p>
     <div class="selectioncontainer">
         <button class="button userchoice" id="urock" onclick="playRound('rock')" value="rock">Rock</button>
         <button class="button userchoice" id="upaper" onclick="playRound('paper')" value="paper">Paper</button>
@@ -28,6 +28,12 @@
         <ol>
 
         </ol>
+        <div class="tally">
+            <div class="innertally">
+                <div class="wins">Wins: <span id="wins">0</span></div>
+                <div class="losses">Losses: <span id="losses">0</span></div>
+            </div>
+        </div>
     </div>
     <div class="optionscontainer">
         <button class="button reset" >Reset</button>
@@ -68,7 +74,11 @@
             let lose = 0;
         function playRound(playerSelection) {
             const roundOutcome = document.createElement('li');
-            const lbreak = document.createElement('hr');
+            const wins = document.querySelector(".wins");
+            const losses = document.querySelector(".losses");
+            const wintally = document.querySelector('#wins');
+            const losstally = document.querySelector('#losses');
+            const userchoice = document.querySelectorAll('.userchoice');
             let computerSelection = computerPlay();
             // Change to listener event for click on buttons
             computer = computerSelection.toLowerCase();
@@ -86,10 +96,13 @@
                 resultcontainer.appendChild(roundOutcome);
                 roundOutcome.textContent = "You win!! " + player + " beats " + computer + "! | Computer: " + computer + " | You: " + player;
                 win++;
-                console.log("Win: " + win);
+                wintally.textContent = win;
                 if (win >= 5) {
                     resultcontainer.appendChild(roundOutcome);
                     roundOutcome.textContent = "You win the game!";
+                    for (let i = 0; i < userchoice.length; i ++) {
+                        userchoice[i].removeAttribute('onclick');
+                    }
                 }
                 return "win";
             } else if ((computer == "rock" && player == "scissors") || 
@@ -99,54 +112,57 @@
                 resultcontainer.appendChild(roundOutcome);
                 roundOutcome.textContent = "You lost, " + computer + " beats " + player + " | Computer: " + computer + " | You: " + player;
                 lose++;
-                console.log("Lose:" + lose);
+                losstally.textContent = lose;
                 if (lose >= 5) {
                     resultcontainer.appendChild(roundOutcome);
                     roundOutcome.textContent = "You lost the game.";
+                    for (let i = 0; i < userchoice.length; i++) {
+                        userchoice[i].removeAttribute('onclick');
+                    }
                 }
                 return "lose";
             }
         }
 
         
-        function playGame() {
-            w = 0;
-            l = 0;
-            for (let i = 0; true; i++) {
-                winner = playRound();
-                console.log(winner);
-                if (winner == "win") {
-                    w++;
-                    if (w => 3) {
-                        break;
-                    }
-                } else if (winner == "lose") {
-                    l++;
-                    if (l => 3) {
-                        break;
-                    }
-                }
-            }
-            if (w => 3) {
-                // Append results
-                const result = document.querySelector('.resultcontainer');
-                document.result.append(paragraph);
-                document.result.textContent = `${w}:${l}`;
-                return "You Win!";
-            } else if (l => 3) {
-                // Append results
-                const result = document.querySelector('.resultcontainer');
-                document.result.append(paragraph);
-                document.result.textContent = `${w}:${l}`;
-                return "You Lose.";
-            } else {
-                // Append results
-                const result = document.querySelector('.resultcontainer');
-                document.result.append(paragraph);
-                document.result.textContent = t;
-                return "You tied.";
-            }
-        };
+        // function playGame() {
+        //     w = 0;
+        //     l = 0;
+        //     for (let i = 0; true; i++) {
+        //         winner = playRound();
+        //         console.log(winner);
+        //         if (winner == "win") {
+        //             w++;
+        //             if (w => 3) {
+        //                 break;
+        //             }
+        //         } else if (winner == "lose") {
+        //             l++;
+        //             if (l => 3) {
+        //                 break;
+        //             }
+        //         }
+        //     }
+        //     if (w => 3) {
+        //         // Append results
+        //         const result = document.querySelector('.resultcontainer');
+        //         document.result.append(paragraph);
+        //         document.result.textContent = `${w}:${l}`;
+        //         return "You Win!";
+        //     } else if (l => 3) {
+        //         // Append results
+        //         const result = document.querySelector('.resultcontainer');
+        //         document.result.append(paragraph);
+        //         document.result.textContent = `${w}:${l}`;
+        //         return "You Lose.";
+        //     } else {
+        //         // Append results
+        //         const result = document.querySelector('.resultcontainer');
+        //         document.result.append(paragraph);
+        //         document.result.textContent = t;
+        //         return "You tied.";
+        //     }
+        // };
         
         const reset = document.querySelector('.reset');
         reset.addEventListener('click', function resetpage() {
